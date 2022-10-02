@@ -16,8 +16,8 @@ def get_skills():
 # This function doesn't return anything
 def show_skills(skills):
     print("Skills: ")
-    for skill in skills:
-        print(f"1. {skill}")
+    for index,skill in enumerate(skills,1):
+        print(f"{index}. {skill}")
 
 
 # Shows the available skills and have user pick from them two skills
@@ -64,18 +64,26 @@ def get_user_cv(skills):
 
 # This functions checks if the cv is acceptable or not, by checking the age, experience and skills and return a boolean (True or False) based on that
 def check_acceptance(cv, desired_skill):
-    if cv in desired_skill:
-        return True
-    else:
-        return False
+     return (
+        25 < cv["age"] < 40
+        and cv["experience"] > 3
+        and desired_skill in cv["skills"]
+    )
 
 
 
 def main():
-    # Write your main logic here by combining the functions above into the
-    # desired outcome
-    
-    print(get_user_cv(get_skills()))
+    print("Welcome to the special recruitment program, please answer the following questions:" )
+
+    skills = get_skills()
+    wanted_skill = 2
+
+    cv = get_user_cv(skills)
+
+    if check_acceptance(cv, skills[wanted_skill]):
+        print(f"You have been accepted, {cv['name']}.")
+    else:
+        print("Sorry, you have been rejected.")
 
 
 if __name__ == "__main__":
